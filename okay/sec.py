@@ -24,3 +24,28 @@ level = pygame_menu.Menu("Select a Difficulty", 600, 400, theme = themes.THEME_B
 level.add.selector("Difficulty:", [("Hard", 1), ("Easy", 2)], onchange = set_difficulty)
 
 #mainmenu.mainloop(surface)
+
+loading = pygame_menu.Menu("Loading the Game: .. ", 600, 400, theme = themes.THEME_DARK)
+loading.add.progress_bar ("Progress", progressbar_id = "1", default = 0, wisth = 200, )
+arrow = pygame_menu.widgets.LeftArrowSelection(arrow_size = (10, 15))
+update_loading = pygame.USEREVENT + 0
+
+while True:
+    events =  pygame.event.get()
+    for event in events:
+        if event.type == update_loading:
+            progress = loading.get_widgets("1")
+            progress.set_value(progress.get_value() + 1)
+            if progress.get_value() == 100:
+                pygame.time.set_timer(update_loading, 0)
+        if event.type == pygame.QUIT:
+            exit()
+    if mainmenu.is_enabled():
+        mainmenu.update(events)
+        mainmenu.draw(surface)
+        if (mainmenu.get_current().get_selected_widget()):
+            arrow.draw(surface, mainmenu.get_current().get_selected_widget())
+    
+    pygame.display.update()
+    
+    

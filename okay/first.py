@@ -24,8 +24,8 @@ while running:
             new_x = ball_x
             new_y = ball_y  
             
-            if event.key == pygame.K_UP:
-                new_y -= move_distance
+            if event.key == pygame.K_UP: 
+                new_y -= move_distance  
             elif event.key == pygame.K_DOWN:
                 new_y += move_distance
             elif event.key == pygame.K_LEFT:
